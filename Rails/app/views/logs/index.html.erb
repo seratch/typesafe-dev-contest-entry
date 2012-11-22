@@ -1,0 +1,10 @@
+<h2>How to use?</h2>
+
+curl -XPOST http://localhost:3000/logs -d'name=access_log&line=10.146.45.58 - - [11/Nov/2012:03:21:02 +0000] "GET / HTTP/1.1" 200 7505 "-" "ELB-HealthChecker/1.0"'
+<br/>
+
+<h2>Recent logs</h2>
+<% @logs.each do |log|%>
+  [<%= log.name %>]: <%= log.line %><br/>
+<% end %>
+

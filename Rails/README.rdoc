@@ -1,0 +1,30 @@
+== Staring appliation
+
+== MySQL in production mode
+
+ create database typesafedevcontest;
+ grant all on typesafedevcontest.* to martin@localhost;
+ set password for martin@localhost = password('odersky');
+
+== Rails app
+
+ bundle install
+ rake db:migrate RAILS_ENV=production
+ rake assets:clean assets:precompile
+ #rails s -e production
+ passenger start -e production -d
+
+== Requests
+
+ curl -XPOST http://localhost:3000/logs -d'name=access_log&line=10.146.45.58 - - [11/Nov/2012:03:21:02 +0000] "GET / HTTP/1.1" 200 7505 "-" "ELB-HealthChecker/1.0"'
+
+== Benchmark
+
+ echo 'name=access_log&line=10.146.45.58 - - [11/Nov/2012:03:21:02 +0000] "GET / HTTP/1.1" 200 7505 "-" "ELB-HealthChecker/1.0"' > post.txt
+
+ ab -c 3 -n 1000 -T "application/x-www-form-urlencoded" -p post.txt http://127.0.0.1:3000/logs
+ ab -c 10 -n 1000 -T "application/x-www-form-urlencoded" -p post.txt http://127.0.0.1:3000/logs
+ ab -c 50 -n 1000 -T "application/x-www-form-urlencoded" -p post.txt http://127.0.0.1:3000/logs
+ ab -c 100 -n 1000 -T "application/x-www-form-urlencoded" -p post.txt http://127.0.0.1:3000/logs
+
+

@@ -1,0 +1,6 @@
+GET     /                           controllers.Root.index
+GET     /logs                       controllers.Logs.index
+POST    /logs                       controllers.Logs.create
+POST    /logs/async                 controllers.Logs.asyncCreate
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
